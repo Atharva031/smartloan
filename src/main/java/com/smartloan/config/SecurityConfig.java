@@ -18,10 +18,12 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/register").permitAll()
-                .anyRequest().authenticated()
-            );
+                .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/api/users/register").permitAll()
+                    .requestMatchers("/api/loans/apply/**").permitAll()
+                    .requestMatchers("/api/loans/**").permitAll()
+                    .anyRequest().authenticated()
+                );
 
         return http.build();
     }
